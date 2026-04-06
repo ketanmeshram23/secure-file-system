@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SecureVault — Sign In</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+<div class="bg-mesh" aria-hidden="true"></div>
+<div id="toast-container"></div>
+
+<div class="page-auth">
+  <div class="glass-card auth-card fade-up">
+
+    <!-- Logo -->
+    <div class="logomark">
+      <div class="logomark-icon">🔐</div>
+      <div>
+        <div class="logomark-name">SecureVault</div>
+        <div class="logomark-tagline">Encrypted File System</div>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="auth-tabs" id="auth-tabs">
+      <button class="tab-btn active" onclick="showTab('login')">Sign In</button>
+      <button class="tab-btn"        onclick="showTab('register')">Register</button>
+    </div>
+
+    <!-- ── LOGIN PANEL ────────────────────────────────────────── -->
+    <div class="tab-panel active" id="panel-login">
+
+      <!-- Step 1: Credentials -->
+      <div id="step-credentials">
+        <div class="form-group">
+          <label class="form-label">Username</label>
+          <div class="input-wrap">
+            <span class="input-icon">👤</span>
+            <input class="form-input" type="text" id="login-username"
+                   placeholder="your_username" autocomplete="username" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <div class="input-wrap">
+            <span class="input-icon">🔑</span>
+            <input class="form-input" type="password" id="login-password"
+                   placeholder="••••••••" autocomplete="current-password" />
+          </div>
+        </div>
+        <button class="btn btn-primary" onclick="login()" id="btn-login">
+          Continue with OTP →
+        </button>
+        <div class="alert" id="login-alert"></div>
+      </div>
+
+      <!-- Step 2: OTP — single clean input (Task 5 fix) -->
+      <div id="step-otp" style="display:none;">
+
+        <div class="info-box">
+          <span class="info-box-icon">✉️</span>
+          <span>A 6-digit OTP has been sent to your <strong>registered email</strong>.<br/>
+          If email is not configured, check the server console.</span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">One-Time Password</label>
+          <div class="input-wrap">
+            <span class="input-icon">🔐</span>
+            <input class="form-input otp-single" type="text" id="otp-code"
+                   placeholder="000000" maxlength="6"
+                   inputmode="numeric" autocomplete="one-time-code"
+                   onkeydown="if(event.key==='Enter') verifyOTP()"
+                   oninput="this.value=this.value.replace(/\D/g,'')" />
+          </div>
+        </div>
+
+        <button class="btn btn-primary" onclick="verifyOTP()" id="btn-otp">
+          Verify &amp; Sign In
+        </button>
+        <button class="btn btn-back" onclick="cancelOTP()">
+          ← Back to credentials
+        </button>
+        <div class="alert" id="otp-alert"></div>
+      </div>
+
+    </div>
+
+    <!-- ── REGISTER PANEL ─────────────────────────────────────── -->
+    <div class="tab-panel" id="panel-register">
+      <div class="form-group">
+        <label class="form-label">Username</label>
+        <div class="input-wrap">
+          <span class="input-icon">👤</span>
+          <input class="form-input" type="text" id="reg-username"
+                 placeholder="choose_username" autocomplete="username" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <div class="input-wrap">
+          <span class="input-icon">✉️</span>
+          <input class="form-input" type="email" id="reg-email"
+                 placeholder="you@example.com" autocomplete="email" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">
+          Password
+          <span style="color:var(--text-muted);font-size:.7rem;text-transform:none;letter-spacing:0;">(min 6 chars)</span>
+        </label>
+        <div class="input-wrap">
+          <span class="input-icon">🔑</span>
+          <input class="form-input" type="password" id="reg-password"
+                 placeholder="••••••••" autocomplete="new-password" />
+        </div>
+      </div>
+      <button class="btn btn-primary" onclick="register()" id="btn-register">
+        Create Account
+      </button>
+      <div class="alert" id="register-alert"></div>
+    </div>
+
+  </div>
+</div>
+
+<script src="/js/auth.js"></script>
+</body>
+</html>
